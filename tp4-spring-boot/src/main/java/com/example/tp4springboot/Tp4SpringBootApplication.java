@@ -31,6 +31,7 @@ public class Tp4SpringBootApplication implements CommandLineRunner {
 
         //create client
         long idClient = adminService.createClient("firstName", "lastName", "password") ;
+        adminService.createEmployee("employee", "lastNameEmployee", "passwordEmployee") ;
         System.out.println(adminService.getClientByIdWithBorrowing(idClient));
 
         //create/save documents
