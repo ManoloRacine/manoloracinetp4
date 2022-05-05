@@ -1,8 +1,10 @@
 package com.example.tp4springboot.controller;
 
 import com.example.tp4springboot.dto.SimpleAccountDTO;
+import com.example.tp4springboot.dto.SimpleBorrowingDTO;
 import com.example.tp4springboot.dto.SimpleDocumentDTO;
 import com.example.tp4springboot.model.Account;
+import com.example.tp4springboot.model.Borrowing;
 import com.example.tp4springboot.model.Document;
 import com.example.tp4springboot.service.AdminService;
 import com.example.tp4springboot.service.ClientService;
@@ -54,6 +56,15 @@ public class LibraryController {
             listDocuments.add(SimpleDocumentDTO.fromDocument(document)) ;
         }
         return listDocuments ;
+    }
+
+    @GetMapping("/client/{id}")
+    public List<SimpleBorrowingDTO> getBorrowingsClient(@PathVariable("id") long id) {
+        List<SimpleBorrowingDTO> listBorrowings = new ArrayList<>() ;
+        for (Borrowing borrowing : adminService.getClientByIdWithBorrowing(id).get().getBorrowings()) {
+            listBorrowings.add(SimpleBorrowingDTO.fromBorrowing(borrowing)) ;
+        }
+        return listBorrowings ;
     }
 
 }

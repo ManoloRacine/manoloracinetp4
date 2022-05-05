@@ -3,11 +3,13 @@ import {Route, Routes} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import './App.css';
 import DocumentList from "./components/DocumentList";
+import BorrowingsList from "./components/BorrowingsList";
 
 function App() {
     const [accounts, setAccounts] = useState([]) ;
     const [connectedAccount, setConnectedAccount] = useState("no account connected") ;
     const [documents, setDocuments] = useState([]) ;
+    const [borrowings, setBorrowings] = useState([]) ;
 
     useEffect(() => {
         const getAccounts = async () => {
@@ -37,6 +39,7 @@ function App() {
 
     const connectAccount = (account) => {
         setConnectedAccount(account) ;
+        fetchBorrowings(account.id) ;
         console.log(connectedAccount) ;
     }
 
@@ -51,6 +54,13 @@ function App() {
             });
         const data = await res.json() ;
         setDocuments(data) ;
+        fetchBorrowings(ids[1]) ;
+    }
+
+    const fetchBorrowings = async (id) => {
+        const res = await fetch('http://localhost:8081/client/' + id) ;
+        const data = await res.json() ;
+        setBorrowings(data) ;
     }
 
   return (
@@ -62,6 +72,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage accounts={accounts} connection={connectAccount}/>}/>
             <Route path="/documents" element={<DocumentList account={connectedAccount} documents={documents} borrow={borrow}/>}/>
+            <Route path='/client' element={<BorrowingsList account={connectedAccount} borrowings={borrowings} fetchBorrowings={fetchBorrowings}/>}/>
         </Routes>
     </div>
   );
