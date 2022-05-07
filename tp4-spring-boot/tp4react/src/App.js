@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Route, Routes} from "react-router-dom";
+import {Link, Route, Routes} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import './App.css';
 import DocumentList from "./components/DocumentList";
@@ -43,6 +43,18 @@ function App() {
         console.log(connectedAccount) ;
     }
 
+    const returnBorrowing = async (ids) => {
+        await fetch("http://localhost:8081/returnBorrowing", {
+            method : 'DELETE',
+            headers: {
+                'Content-type' : 'application/json'
+            },
+            body : JSON.stringify(ids)
+        }) ;
+        setDocuments(await fetchDocuments()) ;
+        await fetchBorrowings(ids[0]) ;
+    }
+
     const borrow = async (ids) => {
         const res = await fetch('http://localhost:8081/borrow',
             {
@@ -68,11 +80,12 @@ function App() {
       <header>
         <h1>Bibliotheque</h1>
           <h1>{connectedAccount === "no account connected" ? connectedAccount : connectedAccount.firstName}</h1>
+          <p>{connectedAccount === "no account connected" ? <div></div> : <Link to='/client'>client page</Link>}</p>
       </header>
         <Routes>
           <Route path="/" element={<LandingPage accounts={accounts} connection={connectAccount}/>}/>
             <Route path="/documents" element={<DocumentList account={connectedAccount} documents={documents} borrow={borrow}/>}/>
-            <Route path='/client' element={<BorrowingsList account={connectedAccount} borrowings={borrowings} fetchBorrowings={fetchBorrowings}/>}/>
+            <Route path='/client' element={<BorrowingsList account={connectedAccount} borrowings={borrowings} returnBorrowing={returnBorrowing}/>}/>
         </Routes>
     </div>
   );

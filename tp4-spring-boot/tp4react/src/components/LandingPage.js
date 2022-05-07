@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const LandingPage = ({accounts, connection}) => {
     return (
         <div>
-            <h4>Landing page</h4>
+            <h3>Landing page</h3>
             <Link to='/documents'>documents</Link>
             <table>
                 <tr>

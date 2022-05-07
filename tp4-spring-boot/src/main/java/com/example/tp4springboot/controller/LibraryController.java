@@ -67,4 +67,9 @@ public class LibraryController {
         return listBorrowings ;
     }
 
+    @DeleteMapping("/returnBorrowing")
+    public void returnBorrowing(@RequestBody int[] ids) throws Exception {
+        clientService.returnDocument(ids[0], ids[1]);
+    }
+
 }
