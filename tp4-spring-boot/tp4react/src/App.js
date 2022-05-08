@@ -9,12 +9,14 @@ import CreateDVD from "./components/CreateDVD";
 import CreateCD from "./components/CreateCD";
 import CreateBook from "./components/CreateBook";
 import CreateClient from "./components/CreateClient";
+import DocumentResearch from "./components/DocumentResearch";
 
 function App() {
     const [accounts, setAccounts] = useState([]) ;
     const [connectedAccount, setConnectedAccount] = useState("no account connected") ;
     const [documents, setDocuments] = useState([]) ;
     const [borrowings, setBorrowings] = useState([]) ;
+    const [documentsResearched, setDocumentsResearched] = useState("no research made") ;
     let navigate = useNavigate() ;
 
 
@@ -42,6 +44,59 @@ function App() {
         const res = await fetch("http://localhost:8081/documents") ;
         const data = await res.json() ;
         return data ;
+    }
+
+    const fetchResearchedDocuments = async (formData) => {
+        let parameter = "" ;
+        let oneParameter = false ;
+
+        if (formData['title'] !== "") {
+            if (oneParameter) {
+                parameter += "&" ;
+            }
+            else {
+                parameter += "?" ;
+                oneParameter = true ;
+            }
+            parameter += "title=" + formData['title'] ;
+        }
+
+        if (formData['author'] !== "") {
+            if (oneParameter) {
+                parameter += "&" ;
+            }
+            else {
+                parameter += "?" ;
+                oneParameter = true ;
+            }
+            parameter += "author=" + formData['author'] ;
+        }
+
+        if (formData['releaseYear'] !== "") {
+            if (oneParameter) {
+                parameter += "&" ;
+            }
+            else {
+                parameter += "?" ;
+                oneParameter = true ;
+            }
+            parameter += "year=" + formData['releaseYear'] ;
+        }
+
+        if (formData['genre'] !== "") {
+            if (oneParameter) {
+                parameter += "&" ;
+            }
+            else {
+                parameter += "?" ;
+                oneParameter = true ;
+            }
+            parameter += "genre=" + formData['genre'] ;
+        }
+
+        const res = await fetch("http://localhost:8081/documentResearch" + parameter) ;
+        const data = await res.json() ;
+        setDocumentsResearched(data) ;
     }
 
     const connectAccount = (account) => {
@@ -160,6 +215,7 @@ function App() {
             <Route path='/createCD' element={<CreateCD createCd={createCd}/>}/>
             <Route path='/createBook' element={<CreateBook createBook={createBook}/>}/>
             <Route path='/createClient' element={<CreateClient createClient={createClient}/>}/>
+            <Route path='/documentResearch' element={<DocumentResearch documentsResearched={documentsResearched} fetchResearchedDocuments={fetchResearchedDocuments} account={connectedAccount} borrow={borrow}/> }/>
         </Routes>
     </div>
   );

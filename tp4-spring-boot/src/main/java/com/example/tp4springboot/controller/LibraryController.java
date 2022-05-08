@@ -100,4 +100,24 @@ public class LibraryController {
         return SimpleAccountDTO.fromAccount(adminService.getClientByIdWithBorrowing(id).get()) ;
     }
 
+    @GetMapping("/documentResearch")
+    public List<SimpleDocumentDTO> documentResearch(@RequestParam(name = "title", required = false) String title,
+                                           @RequestParam(name = "author", required = false) String author,
+                                           @RequestParam(name = "year", required = false) String year,
+                                           @RequestParam(name = "genre", required = false) String genre) {
+        List<Document> documentList = clientService.getAllDocuments() ;
+        System.out.println("test1");
+        if (title != null) documentList = clientService.filterByTitle(documentList,title);
+        if (author != null) documentList = clientService.filterByAuthor(documentList,author);
+        if (year != null) documentList = clientService.filterByYear(documentList,Integer.getInteger(year));
+        if (genre != null) documentList = clientService.filterByGenre(documentList,genre);
+
+        List<SimpleDocumentDTO> simpleDocumentDTOList = new ArrayList<>() ;
+        for (Document document : documentList) {
+            simpleDocumentDTOList.add(SimpleDocumentDTO.fromDocument(document)) ;
+        }
+
+        return simpleDocumentDTOList ;
+    }
+
 }

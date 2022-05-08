@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Component
 public class ClientService {
@@ -48,6 +49,26 @@ public class ClientService {
 
     public List<Document> getAllDocuments() {
         return documentRepository.findAll() ;
+    }
+
+    public List<Document> filterByTitle(List<Document> documentList, String title) {
+        Predicate<Document> byTitle = titleDocument -> titleDocument.getName().contains(title) ;
+        return documentList.stream().filter(byTitle).collect(Collectors.toList());
+    }
+
+    public List<Document> filterByAuthor(List<Document> documentList, String author) {
+        Predicate<Document> byAuthor = authorDocument -> authorDocument.getAuthor().equals(author) ;
+        return documentList.stream().filter(byAuthor).collect(Collectors.toList());
+    }
+
+    public List<Document> filterByYear(List<Document> documentList, int year) {
+        Predicate<Document> byYear = yearDocument -> yearDocument.getReleaseYear() == year ;
+        return documentList.stream().filter(byYear).collect(Collectors.toList());
+    }
+
+    public List<Document> filterByGenre(List<Document> documentList, String genre) {
+        Predicate<Document> byGenre = genreDocument -> genreDocument.getGenre().equals(genre) ;
+        return documentList.stream().filter(byGenre).collect(Collectors.toList());
     }
 
     @Transactional

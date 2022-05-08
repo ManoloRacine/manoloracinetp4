@@ -6,6 +6,8 @@ const BorrowingsList = ({account, borrowings, returnBorrowing}) => {
     return (
         <div>
             <Link to='/documents'>documents</Link>
+            <div></div>
+            <Link to='/documentResearch'>research documents</Link>
             <table>
                 <thead>
                 <th>document name</th>
