@@ -3,6 +3,7 @@ package com.example.tp4springboot.service;
 import com.example.tp4springboot.model.Book;
 import com.example.tp4springboot.model.CD;
 import com.example.tp4springboot.model.DVD;
+import com.example.tp4springboot.model.Document;
 import com.example.tp4springboot.repository.DocumentRepository;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +44,11 @@ public class EmployeeService {
     public long createBook(Book book) {
         documentRepository.save(book) ;
         return book.getId() ;
+    }
+
+    public Document getDocumentById(long id) {
+        Document document = documentRepository.getById(id) ;
+        return document ;
     }
 
 

@@ -3,9 +3,7 @@ package com.example.tp4springboot.controller;
 import com.example.tp4springboot.dto.SimpleAccountDTO;
 import com.example.tp4springboot.dto.SimpleBorrowingDTO;
 import com.example.tp4springboot.dto.SimpleDocumentDTO;
-import com.example.tp4springboot.model.Account;
-import com.example.tp4springboot.model.Borrowing;
-import com.example.tp4springboot.model.Document;
+import com.example.tp4springboot.model.*;
 import com.example.tp4springboot.service.AdminService;
 import com.example.tp4springboot.service.ClientService;
 import com.example.tp4springboot.service.EmployeeService;
@@ -70,6 +68,29 @@ public class LibraryController {
     @DeleteMapping("/returnBorrowing")
     public void returnBorrowing(@RequestBody int[] ids) throws Exception {
         clientService.returnDocument(ids[0], ids[1]);
+    }
+
+    @PostMapping("/createDVD")
+    public SimpleDocumentDTO createDVD(@RequestBody DVD dvd) {
+        long id =  employeeService.createDVD(dvd.getName(), dvd.getAuthor(), dvd.getReleaseYear(), dvd.getNbMinutes(),
+                dvd.getGenre(), dvd.getNbAvailable()) ;
+        System.out.println("test");
+        return SimpleDocumentDTO.fromDocument(employeeService.getDocumentById(id)) ;
+    }
+
+    @PostMapping("/createCD")
+    public SimpleDocumentDTO createCD(@RequestBody CD cd) {
+        long id =  employeeService.createCD(cd.getName(), cd.getAuthor(), cd.getReleaseYear(), cd.getNbMinutes(),
+                cd.getGenre(), cd.getNbAvailable()) ;
+        System.out.println("test");
+        return SimpleDocumentDTO.fromDocument(employeeService.getDocumentById(id)) ;
+    }
+
+    @PostMapping("/createBook")
+    public SimpleDocumentDTO createBook(@RequestBody Book book) {
+        long id =  employeeService.createBook(book) ;
+        System.out.println("test");
+        return SimpleDocumentDTO.fromDocument(employeeService.getDocumentById(id)) ;
     }
 
 }

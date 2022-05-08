@@ -1,15 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, useNavigate} from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import './App.css';
 import DocumentList from "./components/DocumentList";
 import BorrowingsList from "./components/BorrowingsList";
+import EmployeePage from "./components/EmployeePage";
+import CreateDVD from "./components/CreateDVD";
+import CreateCD from "./components/CreateCD";
+import CreateBook from "./components/CreateBook";
 
 function App() {
     const [accounts, setAccounts] = useState([]) ;
     const [connectedAccount, setConnectedAccount] = useState("no account connected") ;
     const [documents, setDocuments] = useState([]) ;
     const [borrowings, setBorrowings] = useState([]) ;
+    let navigate = useNavigate() ;
+
 
     useEffect(() => {
         const getAccounts = async () => {
@@ -39,7 +45,16 @@ function App() {
 
     const connectAccount = (account) => {
         setConnectedAccount(account) ;
-        fetchBorrowings(account.id) ;
+        console.log(account.type) ;
+        if (account.type === "Client") {
+            fetchBorrowings(account.id) ;
+            navigate("/client") ;
+        }
+        else if (account.type === "Employee") {
+            navigate("/employee") ;
+        }
+
+
         console.log(connectedAccount) ;
     }
 
@@ -75,17 +90,61 @@ function App() {
         setBorrowings(data) ;
     }
 
+    const createDvd = async (dvd) => {
+        const res = await fetch('http://localhost:8081/createDVD',
+            {
+                method : 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+                body : JSON.stringify(dvd)
+            });
+        const data = await res.json() ;
+        setDocuments([...documents, data]) ;
+    }
+
+    const createCd = async (cd) => {
+        const res = await fetch('http://localhost:8081/createCD',
+            {
+                method : 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+                body : JSON.stringify(cd)
+            });
+        const data = await res.json() ;
+        setDocuments([...documents, data]) ;
+    }
+
+    const createBook = async (book) => {
+        const res = await fetch('http://localhost:8081/createBook',
+            {
+                method : 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+                body : JSON.stringify(book)
+            });
+        const data = await res.json() ;
+        setDocuments([...documents, data]) ;
+    }
+
   return (
     <div>
       <header>
         <h1>Bibliotheque</h1>
           <h1>{connectedAccount === "no account connected" ? connectedAccount : connectedAccount.firstName}</h1>
           <p>{connectedAccount === "no account connected" ? <div></div> : <Link to='/client'>client page</Link>}</p>
+          <Link to='/'>landing page</Link>
       </header>
         <Routes>
           <Route path="/" element={<LandingPage accounts={accounts} connection={connectAccount}/>}/>
             <Route path="/documents" element={<DocumentList account={connectedAccount} documents={documents} borrow={borrow}/>}/>
             <Route path='/client' element={<BorrowingsList account={connectedAccount} borrowings={borrowings} returnBorrowing={returnBorrowing}/>}/>
+            <Route path='/employee' element={<EmployeePage/>}/>
+            <Route path='/createDVD' element={<CreateDVD createDvd={createDvd}/>}/>
+            <Route path='/createCD' element={<CreateCD createCd={createCd}/>}/>
+            <Route path='/createBook' element={<CreateBook createBook={createBook}/>}/>
         </Routes>
     </div>
   );
