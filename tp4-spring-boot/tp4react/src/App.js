@@ -8,6 +8,7 @@ import EmployeePage from "./components/EmployeePage";
 import CreateDVD from "./components/CreateDVD";
 import CreateCD from "./components/CreateCD";
 import CreateBook from "./components/CreateBook";
+import CreateClient from "./components/CreateClient";
 
 function App() {
     const [accounts, setAccounts] = useState([]) ;
@@ -129,6 +130,19 @@ function App() {
         setDocuments([...documents, data]) ;
     }
 
+    const createClient = async (client) => {
+        const res = await fetch('http://localhost:8081/createClient',
+            {
+                method : 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+                body : JSON.stringify(client)
+            });
+        const data = await res.json() ;
+        setAccounts([...accounts, data]) ;
+    }
+
   return (
     <div>
       <header>
@@ -145,6 +159,7 @@ function App() {
             <Route path='/createDVD' element={<CreateDVD createDvd={createDvd}/>}/>
             <Route path='/createCD' element={<CreateCD createCd={createCd}/>}/>
             <Route path='/createBook' element={<CreateBook createBook={createBook}/>}/>
+            <Route path='/createClient' element={<CreateClient createClient={createClient}/>}/>
         </Routes>
     </div>
   );

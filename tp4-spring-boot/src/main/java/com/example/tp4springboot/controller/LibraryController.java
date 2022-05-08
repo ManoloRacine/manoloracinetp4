@@ -93,4 +93,11 @@ public class LibraryController {
         return SimpleDocumentDTO.fromDocument(employeeService.getDocumentById(id)) ;
     }
 
+    @PostMapping("/createClient")
+    public SimpleAccountDTO createClient(@RequestBody Client client) {
+        long id =  adminService.createClient(client) ;
+        System.out.println("test");
+        return SimpleAccountDTO.fromAccount(adminService.getClientByIdWithBorrowing(id).get()) ;
+    }
+
 }

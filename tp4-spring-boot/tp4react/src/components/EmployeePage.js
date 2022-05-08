@@ -9,6 +9,8 @@ const EmployeePage = () => {
             <Link to='/createCD'>create CD</Link>
             <div></div>
             <Link to='/createDVD'>create DVD</Link>
+            <div></div>
+            <Link to='/createClient'>create client</Link>
         </div>
     )
 
