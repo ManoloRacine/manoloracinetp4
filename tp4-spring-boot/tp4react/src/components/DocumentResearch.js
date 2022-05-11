@@ -40,17 +40,15 @@ const DocumentResearch = ({account, borrow, fetchResearchedDocuments, documentsR
             </form>
             <table>
                 <thead>
-                <tr>
                     <th>name</th>
                     <th>author</th>
                     <th>type</th>
                     <th>nb available</th>
                     <th>borrow</th>
-                </tr>
                 </thead>
                 <tbody>
                 {documentsResearched !== "no research made" ? documentsResearched.map((document) => <DocumentDescription
-                    document={document} account={account} borrow={borrow}/>)
+                    document={document} account={account} borrow={borrow} key={document.id}/>)
                     : <p>no research made</p>}
                 </tbody>
 

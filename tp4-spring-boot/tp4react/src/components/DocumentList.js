@@ -15,7 +15,7 @@ const DocumentList = ({documents, account, borrow}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {documents.map((document) => <DocumentDescription document={document} account={account} borrow={borrow}/>)}
+                    {documents.map((document) => <DocumentDescription key={document.id} document={document} account={account} borrow={borrow}/>)}
                 </tbody>
 
             </table>

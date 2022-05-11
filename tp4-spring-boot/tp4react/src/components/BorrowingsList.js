@@ -16,7 +16,7 @@ const BorrowingsList = ({account, borrowings, returnBorrowing}) => {
                 <th>return</th>
                 </thead>
                 <tbody>
-                {borrowings.map((borrowing) => <BorrowingDescription borrowing={borrowing} returnBorrowing={returnBorrowing} account={account}/>)}
+                {borrowings.map((borrowing) => <BorrowingDescription key={borrowing.id} borrowing={borrowing} returnBorrowing={returnBorrowing} account={account}/>)}
                 </tbody>
             </table>
         </div>
