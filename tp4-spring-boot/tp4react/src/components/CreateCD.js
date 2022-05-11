@@ -24,7 +24,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD name :
-                            <input type="text" name="name"/>
+                            <input type="text" name="name" required/>
                         </label>
                     </td>
                 </tr>
@@ -32,7 +32,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD author :
-                            <input type="text" name="author"/>
+                            <input type="text" name="author" required/>
                         </label>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD release year :
-                            <input type="number" name="releaseYear"/>
+                            <input type="number" name="releaseYear" required/>
                         </label>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD number available :
-                            <input type="number" name="nbAvailable"/>
+                            <input type="number" name="nbAvailable" required/>
                         </label>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD genre :
-                            <input type="text" name="genre"/>
+                            <input type="text" name="genre" required/>
                         </label>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@ const CreateCD = ({createCd}) => {
                     <td>
                         <label>
                             CD number of minutes :
-                            <input type="number" name="nbMinutes"/>
+                            <input type="number" name="nbMinutes" required/>
                         </label>
                     </td>
                 </tr>

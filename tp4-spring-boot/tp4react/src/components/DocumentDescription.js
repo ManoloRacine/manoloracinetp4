@@ -12,7 +12,7 @@ const DocumentDescription = ({document, account, borrow}) => {
             <td>{document.author}</td>
             <td>{document.type}</td>
             <td>{document.nbAvailable}</td>
-            <td><button disabled={document.nbAvailable === 0} onClick={() => {borrow(ids)}}>borrow</button></td>
+            <td><button disabled={document.nbAvailable === 0 || (account.type === "Employee" || account === "no account connected")} onClick={() => {borrow(ids)}}>borrow</button></td>
         </tr>
     )
 

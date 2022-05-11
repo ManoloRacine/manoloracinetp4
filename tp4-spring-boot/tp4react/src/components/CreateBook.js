@@ -24,7 +24,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book name :
-                            <input type="text" name="name"/>
+                            <input type="text" name="name" required/>
                         </label>
                     </td>
                 </tr>
@@ -32,7 +32,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book author :
-                            <input type="text" name="author"/>
+                            <input type="text" name="author" required/>
                         </label>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book release year :
-                            <input type="number" name="releaseYear"/>
+                            <input type="number" name="releaseYear" required/>
                         </label>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book number available :
-                            <input type="number" name="nbAvailable"/>
+                            <input type="number" name="nbAvailable" required/>
                         </label>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book genre :
-                            <input type="text" name="genre"/>
+                            <input type="text" name="genre" required/>
                         </label>
                     </td>
                 </tr>
@@ -64,7 +64,7 @@ const CreateBook = ({createBook}) => {
                     <td>
                         <label>
                             Book number of pages :
-                            <input type="number" name="nbOfPages"/>
+                            <input type="number" name="nbOfPages" required/>
                         </label>
                     </td>
                 </tr>

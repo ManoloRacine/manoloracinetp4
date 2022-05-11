@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import DocumentDescription from "./DocumentDescription";
-import {Link} from "react-router-dom";
 
 const DocumentResearch = ({account, borrow, fetchResearchedDocuments, documentsResearched}) => {
 
@@ -20,7 +19,6 @@ const DocumentResearch = ({account, borrow, fetchResearchedDocuments, documentsR
 
     return (
         <div>
-            <Link to='/'>landing page</Link>
             <form onSubmit={submit}>
                 <label>
                     titre :
@@ -51,7 +49,9 @@ const DocumentResearch = ({account, borrow, fetchResearchedDocuments, documentsR
                 </tr>
                 </thead>
                 <tbody>
-                {documentsResearched !== "no research made" ? documentsResearched.map((document) => <DocumentDescription document={document} account={account} borrow={borrow}/>) : <p>no research made</p>}
+                {documentsResearched !== "no research made" ? documentsResearched.map((document) => <DocumentDescription
+                    document={document} account={account} borrow={borrow}/>)
+                    : <p>no research made</p>}
                 </tbody>
 
             </table>

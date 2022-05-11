@@ -17,6 +17,7 @@ function App() {
     const [documents, setDocuments] = useState([]) ;
     const [borrowings, setBorrowings] = useState([]) ;
     const [documentsResearched, setDocumentsResearched] = useState("no research made") ;
+    const [lastResearchData, setLastResearchData] = useState([]) ;
     let navigate = useNavigate() ;
 
 
@@ -97,6 +98,7 @@ function App() {
         const res = await fetch("http://localhost:8081/documentResearch" + parameter) ;
         const data = await res.json() ;
         setDocumentsResearched(data) ;
+        setLastResearchData(formData) ;
     }
 
     const connectAccount = (account) => {
@@ -127,7 +129,7 @@ function App() {
     }
 
     const borrow = async (ids) => {
-        const res = await fetch('http://localhost:8081/borrow',
+        await fetch('http://localhost:8081/borrow',
             {
                 method : 'POST',
                 headers: {
@@ -135,9 +137,9 @@ function App() {
                 },
                 body : JSON.stringify(ids)
             });
-        const data = await res.json() ;
-        setDocuments(data) ;
-        fetchBorrowings(ids[1]) ;
+        await fetchBorrowings(ids[1]) ;
+        await fetchResearchedDocuments(lastResearchData) ;
+        setDocuments(await fetchDocuments()) ;
     }
 
     const fetchBorrowings = async (id) => {
@@ -202,9 +204,9 @@ function App() {
     <div>
       <header>
         <h1>Bibliotheque</h1>
-          <h1>{connectedAccount === "no account connected" ? connectedAccount : connectedAccount.firstName}</h1>
-          <p>{connectedAccount === "no account connected" ? <div></div> : <Link to='/client'>client page</Link>}</p>
           <Link to='/'>landing page</Link>
+          <h1>{connectedAccount === "no account connected" ? connectedAccount : connectedAccount.firstName}</h1>
+          <p>{connectedAccount === "no account connected" ? <div></div> : connectedAccount.type === "Client" ? <Link to='/client'>client page</Link> : <div></div>}</p>
       </header>
         <Routes>
           <Route path="/" element={<LandingPage accounts={accounts} connection={connectAccount}/>}/>
@@ -215,7 +217,7 @@ function App() {
             <Route path='/createCD' element={<CreateCD createCd={createCd}/>}/>
             <Route path='/createBook' element={<CreateBook createBook={createBook}/>}/>
             <Route path='/createClient' element={<CreateClient createClient={createClient}/>}/>
-            <Route path='/documentResearch' element={<DocumentResearch documentsResearched={documentsResearched} fetchResearchedDocuments={fetchResearchedDocuments} account={connectedAccount} borrow={borrow}/> }/>
+            <Route path='/documentResearch' element={<DocumentResearch lastResearchData={lastResearchData} documentsResearched={documentsResearched} fetchResearchedDocuments={fetchResearchedDocuments} account={connectedAccount} borrow={borrow}/> }/>
         </Routes>
     </div>
   );

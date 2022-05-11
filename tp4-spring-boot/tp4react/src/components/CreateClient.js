@@ -24,7 +24,7 @@ const CreateClient = ({createClient}) => {
                     <td>
                         <label>
                             first name :
-                            <input type="text" name="firstName"/>
+                            <input type="text" name="firstName" required/>
                         </label>
                     </td>
                 </tr>
@@ -32,7 +32,7 @@ const CreateClient = ({createClient}) => {
                     <td>
                         <label>
                             last name :
-                            <input type="text" name="lastName"/>
+                            <input type="text" name="lastName" required/>
                         </label>
                     </td>
                 </tr>
@@ -40,7 +40,7 @@ const CreateClient = ({createClient}) => {
                     <td>
                         <label>
                             password :
-                            <input type="text" name="password"/>
+                            <input type="password" name="password" required/>
                         </label>
                     </td>
                 </tr>

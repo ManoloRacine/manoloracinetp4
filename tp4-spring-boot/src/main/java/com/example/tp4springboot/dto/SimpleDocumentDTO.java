@@ -14,6 +14,7 @@ public class SimpleDocumentDTO {
     private int nbAvailable ;
 
     public static SimpleDocumentDTO fromDocument(Document document) {
+        System.out.println(document.getClass().getName());
         return SimpleDocumentDTO.builder().id(document.getId()).type(document.getClass().getSimpleName()).
                 name(document.getName()).author(document.getAuthor()).nbAvailable(document.getNbAvailable()).build() ;
     }

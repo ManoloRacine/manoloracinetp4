@@ -1,11 +1,9 @@
 import React from 'react'
 import DocumentDescription from "./DocumentDescription";
-import {Link} from "react-router-dom";
 
 const DocumentList = ({documents, account, borrow}) => {
     return (
         <div>
-            <Link to='/'>landing page</Link>
             <table>
                 <thead>
                     <tr>
